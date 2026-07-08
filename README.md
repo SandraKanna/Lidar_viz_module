@@ -26,13 +26,17 @@ It also displays live metrics (fill ratio, visibility, footprint, total volume, 
 ---
 
 ## My role
+At first I considered Foxglove for the visualization layer, but the team needed a fully customizable interface (custom metrics panel, filtering controls, specific interactions), so I built it with Qt + VTK instead.
 
 I worked on the **C++/Qt/VTK visualization layer**, integrating it with an existing ROS2 pipeline (sensors, object detection, voxelization) built by the team. Specifically, I built:
 
 - **`PointCloudRenderer`** — converts `sensor_msgs::PointCloud2` messages into VTK geometry. Includes a custom lookup table mapping intensity → color, with dynamic color range calculation per frame.
 - **`MarkerRenderer`** — manages the lifecycle of VTK actors (creation, pose/color updates, deletion) from `visualization_msgs::MarkerArray` messages, reused for both voxels and object detections.
-- Integration of these renderers into `MainWindow`: syncing visibility checkboxes, auto-framing the camera based on scene bounds, and updating progress bars with pipeline metrics.
+- **`The Qt interface itself`**, built with Qt Designer: a left panel with checkboxes to filter each data type (point cloud, voxels, objects), a `clear scene` action, and a metrics panel with progress bars and live values driven by the incoming pipeline messages.
+- **`VTK viewport integration`**: embedded a `QVTKOpenGLNativeWidget` inside the Qt layout to host the 3D scene, wired it to `MainWindow` (camera auto-framing based on scene bounds, render triggers on checkbox toggle, double-click-to-fit-view).
 - Consumed a thread-safe mailbox system (built by the project's lead dev) to receive ROS2 data on the Qt main thread without blocking rendering.
+  
+
 
 ## Tech stack
 
