@@ -39,5 +39,3 @@ I worked on the **C++/Qt/VTK visualization layer**, integrating it with an exist
 `C++` · `Qt` (QMainWindow, QVTKOpenGLNativeWidget) · `VTK` (actors, mappers, lookup tables) · `ROS2` (rclcpp, subscriptions, custom msg types) · `CMake`
 
 ---
-
-📫 More context on this project and others: [linkedin.com/in/sandrakanna](https://linkedin.com/in/sandrakanna)
